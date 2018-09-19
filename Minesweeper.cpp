@@ -1,7 +1,6 @@
 #include <iostream>
 #include <random>
 #include <iomanip>
-using namespace std;
 
 int i, j, StepCount, Choice;
 
@@ -32,9 +31,9 @@ class Difficulty
 				PosStat[i][j]=0;
 				ExploredFlag[i][j]=0;
 			}
-		random_device r;
-		default_random_engine generator(r());
-		uniform_int_distribution<int> distribution(0, Size-1);
+		std::random_device r;
+		std::default_random_engine generator(r());
+		std::uniform_int_distribution<int> distribution(0, Size-1);
 		for(i=0; i<MineNo; i++) 
 		{
 			x=distribution(generator);
@@ -58,27 +57,27 @@ class Difficulty
 
 	void ShowField() 
 	{
-		cout<<setw(4)<<" ";
+		std::cout<<std::setw(3)<<std::right<<"  ";
 		for(i=0; i<Size; i++)
-			cout<<setw(3)<<left<<i+1;
-		cout<<"\n";
+			std::cout<<std::setw(3)<<std::left<<i+1;
+		std::cout<<"\n";
 		for(i=0; i<Size; i++) 
 		{
-			cout<<setw(2)<<right<<i+1;
+			std::cout<<std::setw(2)<<std::left<<i+1;
 			for(j=0; j<Size; j++) 
 			{
 				if(ExploredFlag[i][j]==0)
-					cout<<setw(3)<<"  ⃞ ";
+					std::cout<<std::setw(3)<<"  ⃞ ";
 				else
 					if(PosStat[i][j]==-1)
-						cout<<setw(3)<<"*";
+						std::cout<<std::setw(3)<<"*";
 					else
 						if(PosStat[i][j]==0)
-							cout<<setw(3)<<"  ";
+							std::cout<<std::setw(3)<<"  ";
 						else
-							cout<<setw(3)<<right<<PosStat[i][j];
+							std::cout<<" "<<std::setw(2)<<std::left<<PosStat[i][j];
 			}
-			cout<<"\n\n";
+			std::cout<<"\n\n";
 		}
 	}
 
@@ -102,11 +101,11 @@ class Difficulty
 
 int main() 
 {
-	cout<<"Select Difficulty:\n";
-	cout<<"   1) Easy (6x6, 5 Mines)\n";
-	cout<<"   2) Medium (8x8, 9 Mines)\n";
-	cout<<"   3) Hard (12x12, 20 Mines)\n";
-	cin>>Choice;
+	std::cout<<"Select Difficulty:\n";
+	std::cout<<"   1) Easy (6x6, 5 Mines)\n";
+	std::cout<<"   2) Medium (8x8, 9 Mines)\n";
+	std::cout<<"   3) Hard (12x12, 20 Mines)\n";
+	std::cin>>Choice;
 	if(Choice==1) Field=Difficulty(6, 5);
 	if(Choice==2) Field=Difficulty(8, 9);
 	if(Choice==3) Field=Difficulty(12, 20);
@@ -115,11 +114,11 @@ int main()
 	while(StepCount>Field.MineNo && LoseFlag==0) 
 	{
 		Field.ShowField();
-		cout<<"Enter coords of next move:\n";
-		cout<<"X: ";
-		cin>>i;
-		cout<<"Y: ";
-		cin>>j;
+		std::cout<<"Enter coords of next move:\n";
+		std::cout<<"X: ";
+		std::cin>>i;
+		std::cout<<"Y: ";
+		std::cin>>j;
 		Field.OpenField(j-1, i-1);
 		if(Field.PosStat[j-1][i-1]==-1)
 			LoseFlag=1;
@@ -130,11 +129,11 @@ int main()
 	if(LoseFlag==0) 
 	{
 		Field.ShowField();
-		cout<<"YOU WIN!!\n";
+		std::cout<<"YOU WIN!!\n";
 	}
 	else 
 	{
 		Field.ShowField();
-		cout<<"YOU LOSE!!\n";
+		std::cout<<"YOU LOSE!!\n";
 	}
 }
