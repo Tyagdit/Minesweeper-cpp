@@ -26,14 +26,19 @@ void GameSettings::Setter(char SetVar, int x, int y, int Var)
 	{
 		case 'S':
 			Size=Var;
+			break;
 		case 'M':
 			MineNo=Var;
+			break;
 		case 'E':
 			ExploredFlag[x][y]=Var;
+			break;
 		case 'P':
 			PosStat[x][y]=Var;
+			break;
 		case 'C':
 			StepCount=Var;
+			break;
 	}
 }
 	
@@ -53,7 +58,10 @@ void GameSettings::FieldGen()
 	{
 		x=distribution(generator);
 		y=distribution(generator);
-		PosStat[x][y]=-1;
+		if(PosStat[x][y]==-1) 
+			i--;
+		else
+			PosStat[x][y]=-1;
 	}
 	for(i=0; i<Size; i++) 
 	{
@@ -85,7 +93,7 @@ void GameSettings::ShowField()
 				std::cout<<std::setw(3)<<"  ⃞ ";
 			else
 				if(PosStat[i][j]==-1)
-					std::cout<<std::setw(3)<<"*";
+					std::cout<<std::setw(3)<<" *";
 				else
 					if(PosStat[i][j]==0)
 						std::cout<<std::setw(3)<<"  ";
